@@ -1,6 +1,7 @@
 package com.todolist.demo.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.todolist.demo.entity.Tarea;
-import com.todolist.demo.entity.Usuario;
 import com.todolist.demo.service.TareaService;
+
+
 
 @RestController
 @RequestMapping("/api/tarea")
 public class TareaController {
+	
+	private static final Logger logger= LoggerFactory.getLogger(TareaController.class);
+	
 	@Autowired 
 	private TareaService tareaService;
 	
@@ -36,7 +44,7 @@ public class TareaController {
 		 
 	   }catch(Exception e) {
 			
-		   e.printStackTrace();
+		   logger.error("Error al Listar tareas" + e.getMessage());
 		   responseTarea= new ResponseEntity<>(listaTareas,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   
@@ -56,7 +64,7 @@ public class TareaController {
 		 
 	   }catch(Exception e) {
 			
-		   e.printStackTrace();
+		   logger.error("Error al Agregar tarea" + e.getMessage());
 		   responseTarea= new ResponseEntity<>(tareaCreada,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   
@@ -75,7 +83,7 @@ public class TareaController {
 		 
 	   }catch(Exception e) {
 			
-		   e.printStackTrace();
+		   logger.error("Error al Modificar tareas" + e.getMessage());
 		   responseTarea= new ResponseEntity<>(tareaResuelta,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   

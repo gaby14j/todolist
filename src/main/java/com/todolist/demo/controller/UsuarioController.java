@@ -1,6 +1,9 @@
 package com.todolist.demo.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.todolist.demo.entity.Tarea;
+
 import com.todolist.demo.entity.Usuario;
 import com.todolist.demo.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
+	
+	private static final Logger logger= LoggerFactory.getLogger(UsuarioController.class);
   
 	@Autowired 
 	private UsuarioService usuarioService;
@@ -32,7 +37,7 @@ public class UsuarioController {
 		   }
 		 
 	   }catch(Exception e) {
-		   e.printStackTrace();
+		   logger.error("Error al Inscribir Usuario: " + e.getMessage());
 		   responseUser= new ResponseEntity<>(usuario,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   
@@ -53,7 +58,7 @@ public class UsuarioController {
 		 
 	   }catch(Exception e) {
 		
-		   e.printStackTrace();
+		   logger.error("Error en Autenticacion: " + e.getMessage());
 		   responseUsuario= new ResponseEntity<>(usuarioEncontrado,HttpStatus.INTERNAL_SERVER_ERROR);
 	   }
 	   

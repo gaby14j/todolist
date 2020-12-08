@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.todolist.demo.entity.Tarea;
-import com.todolist.demo.entity.Usuario;
 import com.todolist.demo.repository.TareaRepository;
-import com.todolist.demo.repository.UsuarioRepository;
 import com.todolist.demo.service.TareaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class TareaServiceImpl implements TareaService{
 
+	private static final Logger logger= LoggerFactory.getLogger(TareaServiceImpl.class);
+	
 	@Autowired
 	private TareaRepository tareaRepository;
 	
@@ -47,7 +50,10 @@ public class TareaServiceImpl implements TareaService{
 		if (this.obtenerTarea(tarea)) {
 			tarea.setEstado(true);
 			tareaResuelta= tareaRepository.save(tarea);
-		}else throw new NullPointerException("La tarea no existe");
+		}else {
+			logger.error("Tarea No Existe");
+			throw new NullPointerException("La tarea no existe");
+		}
 		return tareaResuelta;
 
 	}
