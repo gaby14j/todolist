@@ -16,7 +16,6 @@ import lombok.Data;
 public @Data class Tarea implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
